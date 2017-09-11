@@ -43,7 +43,7 @@ namespace Serilog.Sinks.Udp.TextFormatters
 
             // Assert
             var timestamp = Deserialize().Root.Attribute("timestamp").Value;
-            long.TryParse(timestamp, out long _).ShouldBeTrue();
+            DateTime.TryParse(timestamp, out DateTime _).ShouldBeTrue();
         }
 
         [Theory]
@@ -104,7 +104,7 @@ namespace Serilog.Sinks.Udp.TextFormatters
 
         private XDocument Deserialize()
         {
-            var xmlWithoutNamespaces = output.ToString().Replace("log4j:", string.Empty);
+            var xmlWithoutNamespaces = output.ToString().Replace("log4net:", string.Empty);
             return XDocument.Parse(xmlWithoutNamespaces);
         }
     }

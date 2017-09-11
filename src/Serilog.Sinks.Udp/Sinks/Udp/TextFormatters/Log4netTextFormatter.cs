@@ -145,14 +145,6 @@ namespace Serilog.Sinks.Udp.TextFormatters
             }
         }
 
-        private static void WriteContext(LogEvent logEvent, TextWriter output)
-        {
-            if (logEvent.Properties.TryGetValue(SourceContextPropertyName, out LogEventPropertyValue sourceContext))
-            {
-                output.Write($" class=\"{sourceContext}\"");
-            }
-        }
-
         private static void WriteMessage(LogEvent logEvent, TextWriter output)
         {
             output.Write("<log4net:message>");

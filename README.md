@@ -51,7 +51,7 @@ Taking it to the next level is when you as a team agree on sending the log event
 
 The event formatter is an output template on steroids. It has the responsibility of turning a single log event into a textual representation. It can serialize the log event into JSON, XML or anything else that matches the expectations of the receiver.
 
-The sink comes pre-loaded with one XML based event formatter matching the log4j schema expected by Log2Console.
+The sink comes pre-loaded with one XML based event formatter matching the log4j schema expected by Log2Console and the log4net schema expected by Log4View.
 
 #### `Log4jTextFormatter`
 
@@ -63,6 +63,25 @@ The log event is formatted according to the log4j XML schema expected by Log2Con
   <log4j:throwable>An exception describing the failure<log4j:throwable>
 </log4j:event>
 ```
+
+#### `Log4netTextFormatter`
+
+The log event is formatted according to the log4net XML schema expected by Log4View.
+
+```xml
+<log4net:event logger="Some.Serilog.Context" timestamp="2017-09-01T22:00:00.000+02:00" level="DEBUG" thread="1" username="MACHINE\username" domain="dotnet">
+	<log4net:locationInfo class="Some.Serilog.Context" method="System.String Get(Int32)"/>
+	<log4net:properties>
+		<log4net:data name="log4net:HostName" value="MACHINE"/>
+	</log4net:properties>
+	<log4net:message>Something went wrong.</log4net:message>
+	<log4net:throwable>System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
+		Parameter name: id
+		at Talista.Host.Controllers.ValuesController.Get(Int32 id) in SomeSourceFile.cs:line 41
+	</log4net:throwable>
+</log4net:event>
+```
+
 
 ### Install via NuGet
 

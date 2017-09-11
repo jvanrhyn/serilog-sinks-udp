@@ -75,10 +75,7 @@ The log event is formatted according to the log4net XML schema expected by Log4V
 		<log4net:data name="log4net:HostName" value="MACHINE"/>
 	</log4net:properties>
 	<log4net:message>Something went wrong.</log4net:message>
-	<log4net:throwable>System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.
-		Parameter name: id
-		at Talista.Host.Controllers.ValuesController.Get(Int32 id) in SomeSourceFile.cs:line 41
-	</log4net:throwable>
+	<log4net:throwable>System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.</log4net:throwable>
 </log4net:event>
 ```
 

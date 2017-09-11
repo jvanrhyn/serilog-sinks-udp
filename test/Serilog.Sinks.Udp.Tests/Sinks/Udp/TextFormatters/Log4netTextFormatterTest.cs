@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using Serilog.Events;
 using Xunit;
 using Serilog.Support;
 using Shouldly;
 using System.IO;
 using System.Xml.Linq;
-using Serilog.Parsing;
+using System.Linq;
 
 namespace Serilog.Sinks.Udp.TextFormatters
 {
@@ -74,6 +73,62 @@ namespace Serilog.Sinks.Udp.TextFormatters
 
             // Assert
             Deserialize().Root.Attribute("thread").Value.ShouldBe("1");
+        }
+
+        [Fact]
+        public void UserName()
+        {
+            // Arrange
+            var logEvent = Some.LogEvent();
+            logEvent.AddOrUpdateProperty(new LogEventProperty("EnvironmentUserName", new ScalarValue("SerilogUser")));
+
+            // Act
+            formatter.Format(logEvent, output);
+
+            // Assert
+            Deserialize().Root.Attribute("username").Value.ShouldBe("SerilogUser");
+        }
+
+        [Fact]
+        public void Method()
+        {
+            // Arrange
+            var logEvent = Some.LogEvent();
+            logEvent.AddOrUpdateProperty(new LogEventProperty("Method", new ScalarValue("Void Method()")));
+
+            // Act
+            formatter.Format(logEvent, output);
+
+            // Assert
+            Deserialize().Root.Element("locationInfo").Attribute("method").Value.ShouldBe("Void Method()");
+        }
+
+        [Fact]
+        public void Class()
+        {
+            // Arrange
+            var logEvent = Some.LogEvent();
+            logEvent.AddOrUpdateProperty(new LogEventProperty("SourceContext", new ScalarValue("SourceContext")));
+
+            // Act
+            formatter.Format(logEvent, output);
+
+            // Assert
+            Deserialize().Root.Element("locationInfo").Attribute("class").Value.ShouldBe("SourceContext");
+        }
+
+        [Fact]
+        public void MachineName()
+        {
+            // Arrange
+            var logEvent = Some.LogEvent();
+            logEvent.AddOrUpdateProperty(new LogEventProperty("MachineName", new ScalarValue("MachineName")));
+
+            // Act
+            formatter.Format(logEvent, output);
+
+            // Assert
+            Deserialize().Root.Element("properties").Element("data").Attribute("value").Value.ShouldBe("MachineName");
         }
 
         [Fact]

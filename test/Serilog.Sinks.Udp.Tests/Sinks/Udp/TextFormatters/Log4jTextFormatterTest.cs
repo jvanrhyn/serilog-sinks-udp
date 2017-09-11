@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using Serilog.Events;
 using Xunit;
 using Serilog.Support;
 using Shouldly;
 using System.IO;
 using System.Xml.Linq;
-using Serilog.Parsing;
 
 namespace Serilog.Sinks.Udp.TextFormatters
 {
